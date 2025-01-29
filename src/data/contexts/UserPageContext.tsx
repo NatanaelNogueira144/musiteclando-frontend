@@ -13,12 +13,12 @@ export interface UserPageContextProps {
 
 type UserPageProviderProps = {
     children: React.ReactNode
-    params: Promise<{ userId: string }>
+    userId: string
 }
 
 const UserPageContext = createContext<UserPageContextProps>({} as UserPageContextProps)
 
-export function UserPageProvider({ children, params }: UserPageProviderProps) {
+export function UserPageProvider(props: UserPageProviderProps) {
     const { show } = useUser()
     const router = useRouter()
 
@@ -37,13 +37,12 @@ export function UserPageProvider({ children, params }: UserPageProviderProps) {
     }, [router, show])
 
     useEffect(() => { 
-        const getId = async () => getUser(parseInt((await params).userId))
-        getId()
-    }, [getUser, params])
+        getUser(parseInt(props.userId))
+    }, [getUser, props])
 
     return (
         <UserPageContext.Provider value={{ isLoading, user, setUser, getUser }}>
-            {children}
+            {props.children}
         </UserPageContext.Provider>
     )
 }

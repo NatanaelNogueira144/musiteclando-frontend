@@ -8,12 +8,11 @@ import { useContext } from "react";
 import useDashboardTheme from "@/data/hooks/useDashboardTheme";
 import SubscriptionPageContext, { SubscriptionPageProvider } from "@/data/contexts/SubscriptionPageContext";
 import Container from "@/components/shared/Container";
+import { useParams } from "next/navigation";
 
-type Props = {
-    params: Promise<{ subscriptionId: string }>
-}
-
-export default function SubscriptionEditPage({ params }: Props) {
+export default function SubscriptionEditPage() {
+    const { subscriptionId } = useParams()
+    
     const PageContent = () => {
         const { redirectTo } = useDashboardTheme()
         const { isLoading, subscription, setSubscription } = useContext(SubscriptionPageContext)
@@ -41,9 +40,11 @@ export default function SubscriptionEditPage({ params }: Props) {
 
     return (
         <DashboardTheme>
-            <SubscriptionPageProvider params={params}>
-                <PageContent />
-            </SubscriptionPageProvider>
+            {subscriptionId ? (
+                <SubscriptionPageProvider subscriptionId={subscriptionId as string}>
+                    <PageContent />
+                </SubscriptionPageProvider>
+            ) : <LoadingComponent />}
         </DashboardTheme>
     )
 }

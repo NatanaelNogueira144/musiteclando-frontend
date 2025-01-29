@@ -13,12 +13,12 @@ export interface SubscriptionPageContextProps {
 
 type SubscriptionPageProviderProps = {
     children: React.ReactNode
-    params: Promise<{ subscriptionId: string }>
+    subscriptionId: string
 }
 
 const SubscriptionPageContext = createContext<SubscriptionPageContextProps>({} as SubscriptionPageContextProps)
 
-export function SubscriptionPageProvider({ children, params }: SubscriptionPageProviderProps) {
+export function SubscriptionPageProvider(props: SubscriptionPageProviderProps) {
     const { show } = useSubscription()
     const router = useRouter()
 
@@ -37,13 +37,12 @@ export function SubscriptionPageProvider({ children, params }: SubscriptionPageP
     }, [router, show])
 
     useEffect(() => { 
-        const getId = async () => getSubscription(parseInt((await params).subscriptionId))
-        getId()
-    }, [getSubscription, params])
+        getSubscription(parseInt(props.subscriptionId))
+    }, [getSubscription, props])
 
     return (
         <SubscriptionPageContext.Provider value={{ isLoading, subscription, setSubscription, getSubscription }}>
-            {children}
+            {props.children}
         </SubscriptionPageContext.Provider>
     )
 }

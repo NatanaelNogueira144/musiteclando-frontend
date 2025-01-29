@@ -8,12 +8,11 @@ import { useContext } from "react";
 import useDashboardTheme from "@/data/hooks/useDashboardTheme";
 import UserPageContext, { UserPageProvider } from "@/data/contexts/UserPageContext";
 import Container from "@/components/shared/Container";
+import { useParams } from "next/navigation";
 
-type Props = {
-    params: Promise<{ userId: string }>
-}
-
-export default function UserEditPage({ params }: Props) {
+export default function UserEditPage() {
+    const { userId } = useParams()
+    
     const PageContent = () => {
         const { redirectTo } = useDashboardTheme()
         const { isLoading, user, setUser } = useContext(UserPageContext)
@@ -42,9 +41,11 @@ export default function UserEditPage({ params }: Props) {
 
     return (
         <DashboardTheme>
-            <UserPageProvider params={params}>
-                <PageContent />
-            </UserPageProvider>
+            {userId ? (
+                <UserPageProvider userId={userId as string}>
+                    <PageContent />
+                </UserPageProvider>
+            ) : <LoadingComponent />}
         </DashboardTheme>
     )
 }
