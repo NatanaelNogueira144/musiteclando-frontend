@@ -15,6 +15,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Musiteclando",
   description: "Criado por Natanael Nogueira",
+  icons: {
+    icon: [
+      { url: '/logo-icon.png', type: 'image/png' }
+    ]
+  }
 };
 
 export default function RootLayout({

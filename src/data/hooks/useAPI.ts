@@ -5,7 +5,7 @@ import User from '@/core/models/User'
 import ValidationError from '@/core/exceptions/ValidationError'
 import useMessage from './useMessage'
 
-const URL_BASE = process.env.NEXT_PUBLIC_URL_BASE
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE
 
 export default function useAPI() {
     const { get } = useLocalStorage()
@@ -26,7 +26,7 @@ export default function useAPI() {
             }
         }
 
-        const response = await fetch(`${URL_BASE}/${uri}`, {
+        const response = await fetch(`${API_BASE}/${uri}`, {
             method: method,
             headers: {
                 "Authorization": user ? `Bearer ${user.token}` : "",
@@ -90,7 +90,7 @@ export default function useAPI() {
                 }
             }
 
-            const response = await fetch(`${URL_BASE}/${uri}`, {
+            const response = await fetch(`${API_BASE}/${uri}`, {
                 method: 'POST',
                 headers: {
                     "Authorization": user ? `Bearer ${user?.token}` : "",
@@ -113,5 +113,5 @@ export default function useAPI() {
         }
     }, [get, showErrorMessage])
 
-    return { URL_BASE, httpGet, httpPost, httpPut, httpPatch, httpDelete, httpBlob }
+    return { API_BASE, httpGet, httpPost, httpPut, httpPatch, httpDelete, httpBlob }
 }

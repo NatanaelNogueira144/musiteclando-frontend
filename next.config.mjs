@@ -9,9 +9,9 @@ const nextConfig = {
         port: '',
       },
       {
-        protocol: process.env.NEXT_API_PROTOCOL,
-        hostname: process.env.NEXT_API_HOSTNAME,
-        port: process.env.NEXT_API_PORT,
+        protocol: process.env.NEXT_PUBLIC_API_PROTOCOL,
+        hostname: process.env.NEXT_PUBLIC_API_HOSTNAME,
+        port: process.env.NEXT_PUBLIC_API_PORT,
       },
     ]
   }

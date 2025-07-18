@@ -20,7 +20,7 @@ export default function SubscriptionPage() {
         <DashboardTheme>
             <PageTitle 
                 title="Pré-Inscrição" 
-                subtitle={`Preencha os dados do formulário abaixo e clique em "Enviar". Entraremos en contato com você.`}
+                subtitle={`Preencha os dados do formulário abaixo e clique em "Enviar". Entraremos em contato com você.`}
                 icon={<IconUser size={65} className="text-blue-500" />} 
             />
             <PageContent />
